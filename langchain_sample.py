@@ -13,6 +13,11 @@ prompt = langchain_core.prompts.chat.ChatPromptTemplate.from_template(
 )
 query = "Function Callingとは何ですか？"
 
+# https://qiita.com/FukuharaYohei/items/f1f3ed2d4ef5a3db11ae
+# https://docs.langchain.com/oss/python/langchain/messages
+p = prompt.invoke({"query": query})
+print(p)
+
 chain = (prompt | model)
 output = chain.invoke({"query": query})
 
