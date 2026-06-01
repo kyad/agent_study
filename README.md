@@ -20,7 +20,7 @@ uv run mcp_cli.py
 1. 依存関係をインストールします。
 
 ```bash
-uv run pip install streamlit
+uv add streamlit
 ```
 
 2. `gemma4` モデルをダウンロードします。
@@ -32,7 +32,7 @@ ollama pull gemma4
 ### アプリ起動
 
 ```bash
-streamlit run streamlit_app.py
+uv run streamlit run streamlit_app.py
 ```
 
 ### 使い方
