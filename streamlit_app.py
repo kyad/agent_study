@@ -1,5 +1,4 @@
-import subprocess
-
+from ollama import generate
 import streamlit as st
 
 MODEL_NAME = "gemma4"
@@ -18,26 +17,11 @@ def generate_prompt(history, user_input: str) -> str:
 
 
 def call_ollama(prompt: str) -> str:
-    try:
-        completed = subprocess.run(
-            ["ollama", "run", MODEL_NAME, prompt],
-            capture_output=True,
-            text=True,
-            timeout=60,
-        )
-    except FileNotFoundError:
-        return (
-            "エラー: `ollama` コマンドが見つかりません。"
-            " ollama をインストールし、PATH に追加してください。"
-        )
-    except subprocess.TimeoutExpired:
-        return "エラー: ollama の呼び出しがタイムアウトしました。"
-
-    if completed.returncode != 0:
-        error_message = completed.stderr.strip() or completed.stdout.strip()
-        return f"エラー: ollama 実行に失敗しました。\n{error_message}"
-
-    return completed.stdout.strip()
+    response = generate(
+        model=MODEL_NAME,
+        prompt=prompt,
+    )
+    return response["response"]
 
 
 def init_session() -> None:
